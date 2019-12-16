@@ -1,8 +1,8 @@
 # house_price
 
-![](figure\abst.PNG)
+![图](figure\abst.PNG)
 
-![](figure\deta.PNG)
+![图片](figure\deta.PNG)
 
 参考
 
