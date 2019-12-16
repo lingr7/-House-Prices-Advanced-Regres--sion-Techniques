@@ -1,0 +1,61 @@
+\documentclass[tikz]{standalone}
+\usepackage{float}
+\usepackage{ctex}
+\usepackage{amsmath}
+%\usepackage{math}
+% 添加使用vscode 管理分支的测试代码
+% 定制tikz流程图形状
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows,chains,snakes,backgrounds,calc}
+% 开始
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width = 2cm, minimum height=1cm,text centered, draw = black]
+%矩形，加圆角
+% 输入输出
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black]
+%平行四边形
+% 过程
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+% 判断
+\tikzstyle{decision} = [diamond, aspect = 3, text centered, draw=black]
+%菱形
+% 箭头形式
+\tikzstyle{arrow} = [->,>=stealth]
+\begin{document}
+
+\begin{tikzpicture}[node distance=2cm]
+\node (start) [startstop] {开始};
+\node (in1) [io, below of=start, yshift= -0.2cm] {$\varepsilon > 0,x = {x^{(0)}},{H_0} = I,k = 0$};
+\node (pro1) [process, below of=in1, yshift=-0.2cm] {${d^{(k)}} =  - {H_k}{g^{(k)}}$};
+\node (pro2) [process, below of=pro1] {${\alpha _k} = \arg \mathop {\min }\limits_{\alpha  \ge 0} f({x^{(k)}} + \alpha {d^{(k)}})$};
+\node (pro3) [process, below of=pro2] {\[\begin{array}{l}
+	\Delta {x^{(k)}} = {\alpha _k}{d^{(k)}}\\
+	{x^{(k + 1)}} = {x^{(k)}} + {\alpha _k}{d^{(k)}}\\
+	{{\rm{g}}^{(k + 1)}} = g({x^{(k + 1)}})
+	\end{array}\]};
+\node (dec1) [decision, below of=pro3] {$\left\| {{g^{(k + 1)}}} \right\| \le \varepsilon ?$};
+\node (pro4) [process, below of=dec1] {\[\begin{array}{l}
+	\Delta {g^{(k)}} = {g^{(k + 1)}} - {g^{(k)}}\\
+	{H_{k + 1}} = {H_k} + \frac{{\Delta {x^{\left( k \right)}}\Delta {x^{\left( k \right)T}}}}{{\Delta {x^{\left( k \right)T}}\Delta {g^{\left( k \right)}}}} - \frac{{\left[ {{H_k}\Delta {g^{\left( k \right)}}} \right]{{\left[ {{H_k}\Delta {g^{\left( k \right)}}} \right]}^T}}}{{\Delta {g^{\left( k \right)T}}{H_k}\Delta {g^{\left( k \right)}}}}
+	\end{array}\]};
+\node (out1) [io, right of=dec1, xshift=4cm] {\[\begin{array}{l}
+x^{(k + 1)} \\
+f(x^{(k + 1)})
+\end{array}\]};
+
+\node (stop) [startstop, below of=out1] {结束};
+
+%连接具体形状
+\draw [arrow](start) -- (in1);
+\draw [arrow](in1) -- (pro1);
+\draw [arrow](pro1) -- (pro2);
+\draw [arrow](pro2) -- (pro3);
+\draw [arrow](pro3) -- (dec1);
+\draw [arrow](dec1) -- node[anchor=south] {YES} (out1);
+%\draw [arrow](dec1) -- ($(dec1.east) + (1.5,0)$) node[anchor=east] {NO} |- (pro4);
+\draw [arrow](dec1) --  node[anchor=west] {NO}  (pro4);
+%\draw [arrow](pro4) |- (pro1);
+\draw [arrow](pro4) --($(pro4.west) + (-2,0)$) |- (pro1);
+\draw [arrow](out1) -- (stop);
+\end{tikzpicture}
+
+\end{document}
