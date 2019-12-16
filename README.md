@@ -1,8 +1,10 @@
 # house_price
 
-![](figure/abst.jpg)
+![](https://raw.githubusercontent.com/lingr7/picgo_github/master/imgabst.jpg)
 
-![](figure/deta.jpg)
+
+![](https://raw.githubusercontent.com/lingr7/picgo_github/master/imgdeta.jpg)
+
 
 参考
 
